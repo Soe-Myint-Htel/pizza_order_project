@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::group(['prefix'=>'admin'],function(){
     Route::get('/','AdminController@index')->name('admin#index');
+    Route::get('profile','AdminController@profile')->name('admin#profile');
 });
 Route::group(['prefix'=>'user'],function(){
     Route::get('/','UserController@index')->name('user#index');

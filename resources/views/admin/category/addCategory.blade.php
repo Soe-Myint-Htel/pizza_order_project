@@ -20,6 +20,9 @@
                           <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control"  placeholder="Name" name="name">
+                            @if ($errors->has('name'))
+                                <p class="text-danger">{{ $errors->first('name') }}</p>
+                            @endif
                           </div>
                         </div>
                         <div class="form-group row">

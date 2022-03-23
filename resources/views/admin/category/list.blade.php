@@ -6,6 +6,12 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        @if (Session::has('successCategory'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ Session::get('successCategory') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="row mt-4">
           <div class="col-12">
             <div class="card">
@@ -30,57 +36,30 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                @if (Session::has('successCategory'))
-                    {{ Session::get('successCategory') }}
-                @endif
                 <table class="table table-hover text-nowrap text-center">
                   <thead>
                     <tr>
                       <th>ID</th>
                       <th>Category Name</th>
-                      <th>Created Date</th>
-                      <th></th>
+                      <th>Product Count</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($category as $item)
                     <tr>
+                      <td>{{$item->category_id}}</td>
+                      <td>{{$item->category_name}}</td>
                       <td>1</td>
-                      <td>Vegatable</td>
-                      <td>11-7-2014</td>
                       <td>
                         <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
                       </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Seafood</td>
-                      <td>11-7-2014</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
-                     <tr>
-                      <td>3</td>
-                      <td>Thailand</td>
-                      <td>11-7-2014</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>USA</td>
-                      <td>11-7-2014</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
+                <div class="mt-3 ms-5">{{ $category->links() }}</div>
               </div>
               <!-- /.card-body -->
             </div>

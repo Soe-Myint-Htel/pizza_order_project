@@ -28,7 +28,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="myProfile.html" class="nav-link">
+            <a href="{{ route('admin#profile') }}" class="nav-link">
               <i class="fas fa-user-circle"></i>
               <p>
                 My Profile
@@ -37,7 +37,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="category.html" class="nav-link">
+            <a href="{{ route('admin#category') }}" class="nav-link">
               <i class="fas fa-list"></i>
               <p>
                 Category
@@ -46,7 +46,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="pizza.html" class="nav-link">
+            <a href="{{ route('admin#pizza') }}" class="nav-link">
               <i class="fas fa-pizza-slice ms-5"></i>
               <p>
                 Pizza
@@ -80,12 +80,14 @@
               </p>
             </a>
           </li>
-
           <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="fas fa-sign-out-alt"></i>
+            <a href="carrier.html" class="nav-link">
               <p>
-                Logout
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <i class="fas fa-sign-out-alt"></i>
+                  <input type="submit" value="Logout" class="btn btn-dark m-0 p-0">
+                </form>
               </p>
             </a>
           </li>

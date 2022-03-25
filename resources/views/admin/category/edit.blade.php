@@ -10,17 +10,18 @@
               <a href="{{ route('admin#category') }}"><button class="btn btn-dark btn-sm mb-3"><i class="fas fa-arrow-left"></i>  Back</button></a>
               <div class="card">
                 <div class="card-header p-2">
-                  <legend class="text-center">Add Category</legend>
+                  <legend class="text-center">Edit Category</legend>
                 </div>
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="active tab-pane" id="activity">
-                      <form class="form-horizontal" action="{{ route('admin#createCategory') }}" method="POST">
+                      <form class="form-horizontal" action="{{ route('admin#updateCategory') }}" method="POST">
                         @csrf
                         <div class="form-group row">
                           <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control"  placeholder="Name" name="name">
+                            <input type="hidden" name="id" value="{{ $category->category_id }}">
+                            <input type="text" class="form-control"  placeholder="Name" name="name" value="{{ old('name',$category->category_name) }}">
                             @if ($errors->has('name'))
                                 <p class="text-danger">{{ $errors->first('name') }}</p>
                             @endif
@@ -28,7 +29,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn bg-dark text-white float-end">Add</button>
+                            <button type="submit" class="btn bg-dark text-white float-end">Update</button>
                           </div>
                         </div>
                       </form>

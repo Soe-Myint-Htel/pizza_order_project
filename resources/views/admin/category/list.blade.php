@@ -6,9 +6,24 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        {{-- success alert --}}
         @if (Session::has('successCategory'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{ Session::get('successCategory') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        {{-- delete alert--}}
+        @if (Session::has('successDelete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ Session::get('successDelete') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        {{-- update alert--}}
+        @if (Session::has('successUpdate'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ Session::get('successUpdate') }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
@@ -52,8 +67,12 @@
                       <td>{{$item->category_name}}</td>
                       <td>1</td>
                       <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                        <a href="{{ route('admin#editCategory', $item->category_id) }}">
+                          <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
+                        </a>
+                        <a href="{{ route('admin#deleteCategory', $item->category_id)}}">
+                          <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                        </a>
                       </td>
                     </tr>
                     @endforeach

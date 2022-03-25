@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,9 @@ Route::group(['prefix'=>'admin'],function(){
     Route::get('category','AdminController@category')->name('admin#category');
     Route::get('addCategory', 'AdminController@addCategory')->name('admin#addCategory');
     Route::post('createCategory', 'AdminController@createCategory')->name('admin#createCategory');
+    Route::get('deleteCategory/{id}','AdminController@delete')->name('admin#deleteCategory');
+    Route::get('editCategory/{id}','AdminController@edit')->name('admin#editCategory');
+    Route::post('updateCategory','AdminController@update')->name('admin#updateCategory');
 
     Route::get('pizza','AdminController@pizza')->name('admin#pizza');
 });

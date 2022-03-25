@@ -23,6 +23,37 @@ class AdminController extends Controller
     public function addCategory(){
         return view('admin.category.addCategory');
     }
+
+    // delete category
+    public function delete($id){
+        Category::where('category_id', $id)->delete();
+        return back()->with(['successDelete'=>'Categroy deleted successfully']);
+    }
+
+    // edit category
+    public function edit($id){
+        $data = Category::where('category_id', $id)->first();
+        return view('admin.category.edit')->with(['category'=>$data]);
+    }
+
+    // update category
+    public function update(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+ 
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $updateDate = [
+            'category_name' => $request->name,
+        ];
+        Category::where('category_id', $request->id)->update($updateDate);
+        return redirect()->route('admin#category')->with(['successUpdate'=>'Category updated successfully']);
+    }
+
     public function createCategory(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',

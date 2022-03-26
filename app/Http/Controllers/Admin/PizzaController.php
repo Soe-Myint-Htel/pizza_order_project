@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Validator;
 class PizzaController extends Controller
 {
     public function pizza(){
-        return view('admin.pizza.list');
+        $data = Pizza::paginate(3);
+        return view('admin.pizza.list')->with(['pizza' => $data]);
     }
 
     // create pizza
@@ -33,19 +34,25 @@ class PizzaController extends Controller
             'buyOneGetOne' => 'required',
             'waitingTime' => 'required',
             'description' => 'required',
-            'created_at' => 'required',
-            'updated_at' => 'required',
         ]);
  
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
                         ->withInput();
-        }
+        };
         $data = $this->requestPizza($request);
         Pizza::create($data);
         return redirect()->route('admin#pizza')->with(['successPizza' => 'Pizza created successfully']);
     }
+
+    // delete pizza 
+    public function deletePizza($id){
+        Pizza::where('pizza_id', $id)->delete();
+        return back()->with(['deletePizza' => 'Pizza deleted successfully']);
+    }
+
+
     private function requestPizza($request){
         return [
             'pizza_name' => $request->name,

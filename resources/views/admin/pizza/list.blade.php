@@ -1,11 +1,24 @@
 @extends('admin.layout.app')
 @section('content')
 <div class="content-wrapper">
-
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        {{-- success alert --}}
+        @if (Session::has('successPizza'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ Session::get('successPizza') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        {{-- delete alert --}}
+        @if (Session::has('deletePizza'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ Session::get('deletePizza') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="row mt-4">
           <div class="col-12">
             <div class="card">
@@ -41,50 +54,39 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($pizza as $item)
                     <tr>
-                      <td>1</td>
-                      <td>Vegatable</td>
+                      <td>{{ $item->pizza_id }}</td>
+                      <td>{{ $item->pizza_name }}</td>
                       <td>
                         <img src="https://st.depositphotos.com/1003814/5052/i/950/depositphotos_50523105-stock-photo-pizza-with-tomatoes.jpg" class="img-thumbnail" width="100px">
                       </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
+                      <td>{{ $item->price }} kyats</td>
+                      <td>
+                        @if ($item->publish_status == 1)
+                            Publish
+                        @elseif ($item->publish_status == 0)
+                            Unpublish
+                        @endif
+                      </td>
+                      <td>
+                        @if ($item->buy_one_get_one == 1)
+                            Yes
+                        @elseif ($item->buy_one_get_one == 0)
+                            No
+                        @endif
+                      </td>
                       <td>
                         <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                        <a href="{{ route('admin#deletePizza',$item->pizza_id) }}">
+                          <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                        </a>
                       </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Vegatable</td>
-                      <td>
-                         <img src="http://simply-delicious-food.com/wp-content/uploads/2020/06/Grilled-Pizza-Margherita-3.jpg" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Vegatable</td>
-                      <td>
-                         <img src="https://www.biggerbolderbaking.com/wp-content/uploads/2019/07/15-Minute-Pizza-WS-Thumbnail.png" class="img-thumbnail" width="100px">
-                      </td>
-                      <td>20000 kyats</td>
-                      <td>Yes</td>
-                      <td>Yes</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white" ><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
+                {{ $pizza->links() }}
               </div>
               <!-- /.card-body -->
             </div>

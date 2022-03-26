@@ -4,8 +4,15 @@
 <div class="content-wrapper">  
     <section class="content">
       <div class="container-fluid">
+        {{-- success alert --}}
+        @if (Session::has('successPizza'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ Session::get('successPizza') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="row mt-4">
-          <div class="col-8 offset-3 mt-5">
+          <div class="col-10 offset-2 mt-5">
             <div class="col-md-9">
               <a href="{{ route('admin#pizza') }}"><button class="btn btn-dark btn-sm mb-3"><i class="fas fa-arrow-left"></i>  Back</button></a>
               <div class="card">
@@ -15,7 +22,7 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="active tab-pane" id="activity">
-                      <form class="form-horizontal" action="{{ route('admin#createCategory') }}" method="POST">
+                      <form class="form-horizontal" action="{{ route('admin#insertPizza') }}" method="POST">
                         @csrf
                         <div class="form-group row">
                           <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -30,7 +37,7 @@
                         <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Image</label>
                             <div class="col-sm-10">
-                              <input type="file" class="form-control"  placeholder="Image" name="imgae">
+                              <input type="text" class="form-control"  placeholder="Image" name="image">
                               @if ($errors->has('image'))
                                   <p class="text-danger">{{ $errors->first('image') }}</p>
                               @endif
@@ -40,9 +47,9 @@
                           <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Price</label>
                             <div class="col-sm-10">
-                              <input type="number" class="form-control"  placeholder="Pirce" pirce="pirce">
-                              @if ($errors->has('pirce'))
-                                  <p class="text-danger">{{ $errors->first('pirce') }}</p>
+                              <input type="number" class="form-control"  placeholder="Price" name="price">
+                              @if ($errors->has('price'))
+                                  <p class="text-danger">{{ $errors->first('price') }}</p>
                               @endif
                             </div>
                           </div>
@@ -51,6 +58,7 @@
                             <label for="inputName" class="col-sm-2 col-form-label">Public status</label>
                             <div class="col-sm-10">
                               <select name="publish" class="form-control">
+                                  <option value="">Choose option</option>
                                   <option value="1">Publish</option>
                                   <option value="0">Unpublish</option>
                               </select>
@@ -64,8 +72,10 @@
                             <label for="inputName" class="col-sm-2 col-form-label">Catrgory</label>
                             <div class="col-sm-10">
                                 <select name="category" class="form-control">
-                                    <option value="1">...</option>
-                                    <option value="0">123</option>
+                                    <option value="">Choose category</option>
+                                    @foreach ($category as $item)
+                                        <option value="{{ $item->category_id }}">{{ $item->category_name }}</option>
+                                    @endforeach
                                 </select>
                               @if ($errors->has('category'))
                                   <p class="text-danger">{{ $errors->first('category') }}</p>
@@ -86,10 +96,8 @@
                           <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Buy 1 Get 1</label>
                             <div class="col-sm-10">
-                                <select name="buyOneGetOne" class="form-control">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
+                                <input type="radio" name="buyOneGetOne" class="form-input-check" value="1"> Yes </br>
+                                <input type="radio" name="buyOneGetOne" class="form-input-check" value="0"> No
                               @if ($errors->has('buyOneGetOne'))
                                   <p class="text-danger">{{ $errors->first('buyOneGetOne') }}</p>
                               @endif

@@ -1,13 +1,13 @@
 <?php
+namespace App\Http\Controllers\Admin;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AdminController extends Controller
+class categoryController extends Controller
 {
     //admin home page
     public function profile(){
@@ -54,6 +54,12 @@ class AdminController extends Controller
         return redirect()->route('admin#category')->with(['successUpdate'=>'Category updated successfully']);
     }
 
+    // search category
+    public function search(Request $request){
+        $data = Category::where('category_name', 'like', '%'.$request->search.'%')->paginate(2);
+        return view('admin.category.list')->with(['category' => $data]);
+    }
+
     public function createCategory(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -67,10 +73,5 @@ class AdminController extends Controller
         $data = ['category_name' => $request->name];
         Category::create($data);
         return redirect()->route('admin#category')->with(['successCategory' => 'Category added successfully...']);
-    }
-    
-
-    public function pizza(){
-        return view('admin.pizza.list');
     }
 }

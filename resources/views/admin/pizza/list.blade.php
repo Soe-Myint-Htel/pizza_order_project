@@ -10,7 +10,9 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Pizza Table</h3>
+                <a href="{{ route('admin#createPizza') }}">
+                  <button class="btn btn-dark"><i class="fas fa-plus me-2"></i>Add Pizza</button>
+                </a>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">

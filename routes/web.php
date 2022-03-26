@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PizzaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,17 +30,19 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     }
 })->name('dashboard');
 
-Route::group(['prefix'=>'admin'],function(){
-    Route::get('profile','AdminController@profile')->name('admin#profile');
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
+    Route::get('profile','CategoryController@profile')->name('admin#profile');
+    Route::get('category','CategoryController@category')->name('admin#category');
+    Route::get('addCategory', 'CategoryController@addCategory')->name('admin#addCategory');
+    Route::post('createCategory', 'CategoryController@createCategory')->name('admin#createCategory');
+    Route::get('deleteCategory/{id}','CategoryController@delete')->name('admin#deleteCategory');
+    Route::get('editCategory/{id}','CategoryController@edit')->name('admin#editCategory');
+    Route::post('updateCategory','CategoryController@update')->name('admin#updateCategory');
+    Route::get('searchCategory','CategoryController@search')->name('admin#searchCategory');
 
-    Route::get('category','AdminController@category')->name('admin#category');
-    Route::get('addCategory', 'AdminController@addCategory')->name('admin#addCategory');
-    Route::post('createCategory', 'AdminController@createCategory')->name('admin#createCategory');
-    Route::get('deleteCategory/{id}','AdminController@delete')->name('admin#deleteCategory');
-    Route::get('editCategory/{id}','AdminController@edit')->name('admin#editCategory');
-    Route::post('updateCategory','AdminController@update')->name('admin#updateCategory');
-
-    Route::get('pizza','AdminController@pizza')->name('admin#pizza');
+    Route::get('pizza','PizzaController@pizza')->name('admin#pizza');
+    Route::get('createPizza', 'PizzaController@createPizza')->name('admin#createPizza');
+    
 });
 Route::group(['prefix'=>'user'],function(){
     Route::get('/','UserController@index')->name('user#index');

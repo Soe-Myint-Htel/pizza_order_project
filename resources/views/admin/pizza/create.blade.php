@@ -15,9 +15,9 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="active tab-pane" id="activity">
-                      <form class="form-horizontal" action="{{ route('admin#insertPizza') }}" method="POST">
+                      <form class="form-horizontal" action="{{ route('admin#insertPizza') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group row">
+                        <div class="form-group row"> 
                           <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control"  placeholder="Enter Name" name="name">
@@ -30,7 +30,7 @@
                         <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Image</label>
                             <div class="col-sm-10">
-                              <input type="text" class="form-control"  placeholder="Enter Image" name="image">
+                              <input type="file" class="form-control"  placeholder="Enter Image" name="image">
                               @if ($errors->has('image'))
                                   <p class="text-danger">{{ $errors->first('image') }}</p>
                               @endif

@@ -41,7 +41,12 @@ class PizzaController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         };
-        $data = $this->requestPizza($request);
+        // image store
+        $file = $request->file('image');
+        $fileName = uniqid().'_'.$file->getClientOriginalName();
+        $file->move(public_path().'/uploads', $fileName);
+
+        $data = $this->requestPizza($request, $fileName);
         Pizza::create($data);
         return redirect()->route('admin#pizza')->with(['successPizza' => 'Pizza created successfully']);
     }
@@ -53,10 +58,10 @@ class PizzaController extends Controller
     }
 
 
-    private function requestPizza($request){
+    private function requestPizza($request, $fileName){
         return [
             'pizza_name' => $request->name,
-            'image' => $request->image,
+            'image' => $fileName,
             'price' => $request->price,
             'public_status' => $request->publish,
             'category_id' => $request->category,

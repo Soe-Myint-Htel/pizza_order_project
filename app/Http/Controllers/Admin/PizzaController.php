@@ -7,13 +7,21 @@ use App\Models\Pizza;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class PizzaController extends Controller
 {
     public function pizza(){
         $data = Pizza::paginate(3);
-        return view('admin.pizza.list')->with(['pizza' => $data]);
+
+        if(count($data) == 0){
+            $emptyStasus = 0;
+        }else{
+            $emptyStasus = 1;
+        }
+
+        return view('admin.pizza.list')->with(['pizza' => $data, 'status' => $emptyStasus]);
     }
 
     // create pizza
@@ -44,7 +52,7 @@ class PizzaController extends Controller
         // image store
         $file = $request->file('image');
         $fileName = uniqid().'_'.$file->getClientOriginalName();
-        $file->move(public_path().'/uploads', $fileName);
+        $file->move(public_path().'/uploads/', $fileName);
 
         $data = $this->requestPizza($request, $fileName);
         Pizza::create($data);
@@ -53,7 +61,16 @@ class PizzaController extends Controller
 
     // delete pizza 
     public function deletePizza($id){
+        $data = Pizza::select('image')->where('pizza_id', $id)->first();
+        $fileName = $data['image'];
+
+        // db delete
         Pizza::where('pizza_id', $id)->delete();
+
+        // local project delete
+        if(File::exists(public_path().'/uploads/'.$fileName)){
+            File::delete(public_path().'/uploads/'.$fileName);
+        }
         return back()->with(['deletePizza' => 'Pizza deleted successfully']);
     }
 

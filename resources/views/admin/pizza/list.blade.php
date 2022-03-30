@@ -54,7 +54,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($pizza as $item)
+                    @if ($status == 0)
+                        <tr>
+                          <td colspan="7">
+                            <p>There is no data...</p>
+                          </td>
+                        </tr>
+                    @else
+                      @foreach ($pizza as $item)
                       <tr>
                         <td>{{ $item->pizza_id }}</td>
                         <td>{{ $item->pizza_name }}</td>
@@ -85,6 +92,7 @@
                         </td>
                       </tr>
                       @endforeach
+                    @endif
                   </tbody>
                 </table>
                 {{ $pizza->links() }}

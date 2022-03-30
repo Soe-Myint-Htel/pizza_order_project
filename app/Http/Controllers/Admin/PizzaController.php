@@ -80,6 +80,12 @@ class PizzaController extends Controller
         return view('admin.pizza.info')->with(['pizza'=>$data]);
     }
 
+    // edit pizza
+    public function editPizza($id){
+        $category = Category::get();
+        $data = Pizza::where('pizza_id', $id)->first();
+        return view('admin.pizza.edit')->with(['pizza'=>$data, 'category'=>$category]);
+    }
 
     private function requestPizza($request, $fileName){
         return [

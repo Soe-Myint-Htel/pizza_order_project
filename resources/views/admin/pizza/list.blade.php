@@ -84,7 +84,9 @@
                           @endif
                         </td>
                         <td>
-                          <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
+                          <a href="{{ route('admin#editPizza', $item->pizza_id) }}">
+                            <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
+                          </a>
                           <a href="{{ route('admin#deletePizza',$item->pizza_id) }}">
                             <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
                           </a>

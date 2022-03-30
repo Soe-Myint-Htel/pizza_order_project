@@ -88,7 +88,9 @@
                           <a href="{{ route('admin#deletePizza',$item->pizza_id) }}">
                             <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
                           </a>
-                          <button class="btn btn-sm bg-primary text-white"><i class="fas fa-eye"></i></button>
+                          <a href="{{ route('admin#infoPizza', $item->pizza_id) }}">
+                            <button class="btn btn-sm bg-primary text-white"><i class="fas fa-eye"></i></button>
+                          </a>
                         </td>
                       </tr>
                       @endforeach

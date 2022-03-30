@@ -44,6 +44,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('createPizza', 'PizzaController@createPizza')->name('admin#createPizza');
     Route::post('insertPizza', 'PizzaController@insertPizza')->name('admin#insertPizza');
     Route::get('deletePizza/{id}', 'PizzaController@deletePizza')->name('admin#deletePizza');
+    Route::get('infoPizza/{id}', 'PizzaController@infoPizza')->name('admin#infoPizza');
     
 });
 Route::group(['prefix'=>'user'],function(){

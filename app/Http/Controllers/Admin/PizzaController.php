@@ -74,6 +74,12 @@ class PizzaController extends Controller
         return back()->with(['deletePizza' => 'Pizza deleted successfully']);
     }
 
+    // info pizza 
+    public function infoPizza($id){
+        $data = Pizza::where('pizza_id', $id)->first();
+        return view('admin.pizza.info')->with(['pizza'=>$data]);
+    }
+
 
     private function requestPizza($request, $fileName){
         return [

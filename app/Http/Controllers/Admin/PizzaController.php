@@ -83,7 +83,10 @@ class PizzaController extends Controller
     // edit pizza
     public function editPizza($id){
         $category = Category::get();
-        $data = Pizza::where('pizza_id', $id)->first();
+        $data = Pizza::select('pizzas.*','categories.category_id','categories.category_name')
+            ->join('categories','pizzas.category_id','categories.category_id')
+            ->where('pizza_id', $id)
+            ->first();
         return view('admin.pizza.edit')->with(['pizza'=>$data, 'category'=>$category]);
     }
 

@@ -73,9 +73,11 @@
                             <label for="inputName" class="col-sm-2 col-form-label">Catrgory</label>
                             <div class="col-sm-10">
                                 <select name="category" class="form-control">
-                                    <option value="">Choose category</option>
+                                    <option value="{{ $pizza->category_id }}">{{ $pizza->category_name }}</option>
                                     @foreach ($category as $item)
-                                        <option value="{{ $item->category_id }}">{{ $item->category_name }}</option>
+                                        @if ($item->category_id != $pizza->category_id)
+                                          <option value="{{ $item->category_id }}">{{ $item->category_name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                               @if ($errors->has('category'))

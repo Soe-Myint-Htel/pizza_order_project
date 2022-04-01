@@ -31,7 +31,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
-    Route::get('profile','CategoryController@profile')->name('admin#profile');
+    Route::get('profile','AdminController@profile')->name('admin#profile');
+
+    Route::post('update/{id}', 'AdminController@updateProfile')->name('admin#updateProfile');
+
     Route::get('category','CategoryController@category')->name('admin#category');
     Route::get('addCategory', 'CategoryController@addCategory')->name('admin#addCategory');
     Route::post('createCategory', 'CategoryController@createCategory')->name('admin#createCategory');

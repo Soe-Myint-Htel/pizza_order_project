@@ -9,12 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class categoryController extends Controller
 {
-    //admin home page
-    public function profile(){
-        $id = auth()->user()->id;
-        $userData = User::where('id', $id)->first();
-        return view('admin.profile.index')->with(['user'=>$userData]);
-    }
+    
     public function category(){
         $data = Category::paginate(3);
         return view('admin.category.list')->with(['category' => $data]);

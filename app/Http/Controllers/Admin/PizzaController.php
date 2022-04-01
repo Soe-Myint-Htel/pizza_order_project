@@ -134,6 +134,21 @@ class PizzaController extends Controller
         }
     }
 
+    // search pizza
+    public function searchPizza(Request $request){
+        $searchKey = $request->table_search;
+        $searchData = Pizza::orWhere('pizza_name','like','%'.$searchKey.'%')
+                            ->orWhere('price','like','%'.$searchKey.'%')
+                            ->paginate(3);
+        if(count($searchData) == 0){
+            $emptyStasus = 0;
+        }else{
+            $emptyStasus = 1;
+        }
+        return view('admin.pizza.list')->with(['pizza'=>$searchData,'status'=>$emptyStasus]);
+    }
+
+
 
     private function requestUpdatePizzaData($request){
         $arr = [

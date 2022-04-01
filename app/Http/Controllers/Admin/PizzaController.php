@@ -90,6 +90,70 @@ class PizzaController extends Controller
         return view('admin.pizza.edit')->with(['pizza'=>$data, 'category'=>$category]);
     }
 
+    // update pizza
+    public function updatePizza($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'price' => 'required',
+            'publish' => 'required',
+            'category' => 'required',
+            'discount' => 'required',
+            'buyOneGetOne' => 'required',
+            'waitingTime' => 'required',
+            'description' => 'required',
+        ]);
+ 
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        };
+        $updateData = $this->requestUpdatePizzaData($request);
+        if(isset($updateData['image'])){
+            // get old image
+            $data = Pizza::select('image')->where('pizza_id', $id)->first();
+            $fileName = $data['image'];
+
+            // delete old image
+            if(File::exists(public_path().'/uploads/'.$fileName)){
+                File::delete(public_path().'/uploads/'.$fileName);
+            }
+
+            // get new image
+            $file = $request->file('image');
+            $fileName = uniqid().'_'.$file->getClientOriginalName();
+            $file->move(public_path().'/uploads/',$fileName);
+            $updateData['image'] = $fileName;
+
+            // update data
+            Pizza::where('pizza_id', $id)->update($updateData);
+            return redirect()->route('admin#pizza')->with(['updatePizza'=>'Pizza updated successfully']);
+        }else{
+            Pizza::where('pizza_id', $id)->update($updateData);
+            return redirect()->route('admin#pizza')->with(['updatePizza'=>'Pizza updated successfully']);
+        }
+    }
+
+
+    private function requestUpdatePizzaData($request){
+        $arr = [
+            'pizza_name' => $request->name,
+            'price' => $request->price,
+            'public_status' => $request->publish,
+            'category_id' => $request->category,
+            'discount_price' => $request->discount,
+            'buy_one_get_one_status' => $request->buyOneGetOne,
+            'waiting_time' => $request->waitingTime,
+            'description' => $request->description,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+        if(isset($request->image)){
+            $arr['image'] = $request->image;
+        }
+        return $arr;
+    }
+
     private function requestPizza($request, $fileName){
         return [
             'pizza_name' => $request->name,

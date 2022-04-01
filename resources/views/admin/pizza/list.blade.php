@@ -19,6 +19,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+
+        {{-- update alert --}}
+        @if (Session::has('updatePizza'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ Session::get('updatePizza') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="row mt-4">
           <div class="col-12">
             <div class="card">
@@ -70,16 +78,16 @@
                         </td>
                         <td>{{ $item->price }} kyats</td>
                         <td>
-                          @if ($item->publish_status == 1)
+                          @if ($item->public_status == 1)
                               Publish
-                          @elseif ($item->publish_status == 0)
+                          @elseif ($item->public_status == 0)
                               Unpublish
                           @endif
                         </td>
                         <td>
-                          @if ($item->buy_one_get_one == 1)
+                          @if ($item->buy_one_get_one_status == 1)
                               Yes
-                          @elseif ($item->buy_one_get_one == 0)
+                          @elseif ($item->buy_one_get_one_status == 0)
                               No
                           @endif
                         </td>

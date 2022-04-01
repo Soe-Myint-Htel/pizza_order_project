@@ -18,7 +18,7 @@
                     </div>
                   <div class="tab-content">
                     <div class="active tab-pane" id="activity">
-                      <form class="form-horizontal" action="{{ route('admin#insertPizza') }}" method="POST" enctype="multipart/form-data">
+                      <form class="form-horizontal" action="{{ route('admin#updatePizza',$pizza->pizza_id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row"> 
                           <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -55,7 +55,7 @@
                             <div class="col-sm-10">
                               <select name="publish" class="form-control">
                                   <option value="">Choose option</option>
-                                  @if ($pizza->publish_status == 0)
+                                  @if ($pizza->public_status == 0)
                                     <option value="1">Publish</option>
                                     <option value="0" selected>Unpublish</option> 
                                   @else
@@ -101,13 +101,11 @@
                             <div class="col-sm-10">
                                 @if ($pizza->buy_one_get_one_status == 1)
                                 <input type="radio" name="buyOneGetOne" class="form-input-check" value="1" checked> Yes </br>
-                                @else
                                 <input type="radio" name="buyOneGetOne" class="form-input-check" value="0"> No
                                 @endif
 
                                 @if ($pizza->buy_one_get_one_status == 0)
                                 <input type="radio" name="buyOneGetOne" class="form-input-check" value="1"> Yes </br>
-                                @else
                                 <input type="radio" name="buyOneGetOne" class="form-input-check" value="0" checked> No
                                 @endif
                                 
@@ -138,7 +136,7 @@
                           </div>
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn bg-dark text-white float-end">Add</button>
+                            <button type="submit" class="btn btn-dark float-end">Update</button>
                           </div>
                         </div>
                       </form>

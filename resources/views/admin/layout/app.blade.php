@@ -55,7 +55,7 @@
           </li>
 
          <li class="nav-item">
-            <a href="user.html" class="nav-link">
+            <a href="{{ route('admin#userList') }}" class="nav-link">
             <i class="fas fa-users"></i>
               <p>
                 User

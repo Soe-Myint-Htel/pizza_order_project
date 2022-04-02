@@ -20,6 +20,13 @@
                   </div>
                   @endif
 
+                  @if (Session::has('passError'))
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ Session::get('passError') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  @endif
+
                   <div class="tab-content">
                     <div class="active tab-pane" id="activity">
                       <form class="form-horizontal" method="POST" action="{{ route('admin#updateProfile',$user->id) }}">
@@ -63,19 +70,18 @@
                         
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
-                            <a href="">Change Password</a>
+                            <a href="{{ route('admin#changePasswordPage') }}">Change Password</a>
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn bg-dark text-white float-end">Update</button>
+                            </div>
                           </div>
                         </div>
+                          <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                              <button type="submit" class="btn bg-dark text-white float-end mx-4">Update</button>
+                            </div>
+                          </div>
                       </form>
-                      
-                    </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

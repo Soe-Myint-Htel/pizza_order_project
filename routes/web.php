@@ -34,6 +34,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('profile','AdminController@profile')->name('admin#profile');
 
     Route::post('update/{id}', 'AdminController@updateProfile')->name('admin#updateProfile');
+    Route::get('changePassword', 'AdminController@changePasswordPage')->name('admin#changePasswordPage');
+    Route::post('changePassword/{id}', 'AdminController@changePassword')->name('admin#changePassword');
 
     Route::get('category','CategoryController@category')->name('admin#category');
     Route::get('addCategory', 'CategoryController@addCategory')->name('admin#addCategory');

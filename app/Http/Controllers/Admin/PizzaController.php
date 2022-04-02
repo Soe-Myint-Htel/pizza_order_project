@@ -124,14 +124,9 @@ class PizzaController extends Controller
             $fileName = uniqid().'_'.$file->getClientOriginalName();
             $file->move(public_path().'/uploads/',$fileName);
             $updateData['image'] = $fileName;
-
-            // update data
-            Pizza::where('pizza_id', $id)->update($updateData);
-            return redirect()->route('admin#pizza')->with(['updatePizza'=>'Pizza updated successfully']);
-        }else{
-            Pizza::where('pizza_id', $id)->update($updateData);
-            return redirect()->route('admin#pizza')->with(['updatePizza'=>'Pizza updated successfully']);
         }
+            Pizza::where('pizza_id', $id)->update($updateData);
+            return redirect()->route('admin#pizza')->with(['updatePizza'=>'Pizza updated successfully']);
     }
 
     // search pizza

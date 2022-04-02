@@ -51,7 +51,7 @@ class categoryController extends Controller
 
     // search category
     public function search(Request $request){
-        $data = Category::where('category_name', 'like', '%'.$request->search.'%')->paginate(2);
+        $data = Category::where('category_name', 'like', '%'.$request->search.'%')->paginate(3);
         return view('admin.category.list')->with(['category' => $data]);
     }
 

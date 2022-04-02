@@ -71,7 +71,7 @@
                     @endforeach
                   </tbody>
                 </table>
-                {{-- <div class="mt-3 ms-5">{{ $user->links() }}</div> --}}
+                <div class="mt-3 ms-5">{{ $user->links() }}</div>
               </div>
               <!-- /.card-body -->
             </div>

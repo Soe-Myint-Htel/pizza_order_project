@@ -7,9 +7,9 @@
     <section class="content">
       <div class="container-fluid">
         {{-- success alert --}}
-        @if (Session::has('successCategory'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{ Session::get('successCategory') }}
+        @if (Session::has('deleteSuccess'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ Session::get('deleteSuccess') }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
@@ -28,7 +28,7 @@
                 </h3>
 
                 <div class="card-tools">
-                  <form action="{{ route('admin#searchCategory') }}" method="GET">
+                  <form action="{{ route('admin#userSearch') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm" style="width: 150px;">
                       <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ old('search') }}">
@@ -56,22 +56,24 @@
                   </thead>
                   <tbody>
                     @foreach ($user as $item)
-                    <tr>
-                      <td>{{$item->id}}</td>
-                      <td>{{$item->name}}</td>
-                      <td>{{$item->email}}</td>
-                      <td>{{$item->phone}}</td>
-                      <td>{{$item->address}}</td>
-                      <td>
-                        <a href="{{ route('admin#deleteCategory', $item->id)}}">
-                          <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                        </a>
-                      </td>
-                    </tr>
+                    @if ($item->role != 'admin')
+                      <tr>
+                        <td>{{$item->id}}</td>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>{{$item->phone}}</td>
+                        <td>{{$item->address}}</td>
+                        <td>
+                          <a href="{{ route('admin#userDelete', $item->id)}}">
+                            <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                          </a>
+                        </td>
+                      </tr>
+                    @endif
                     @endforeach
                   </tbody>
                 </table>
-                {{-- <div class="mt-3 ms-5">{{ $user->links() }}</div> --}}
+                <div class="mt-3 ms-5">{{ $user->links() }}</div>
               </div>
               <!-- /.card-body -->
             </div>

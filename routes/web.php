@@ -56,6 +56,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     
     Route::get('userList', 'UserController@userList')->name('admin#userList');
     Route::get('adminList', 'UserController@adminList')->name('admin#adminList');
+    Route::get('userList/search', 'UserController@userSearch')->name('admin#userSearch');
+    Route::get('userList/delete/{id}', 'UserController@userDelete')->name('admin#userDelete');
 });
 Route::group(['prefix'=>'user'],function(){
     Route::get('/','UserController@index')->name('user#index');

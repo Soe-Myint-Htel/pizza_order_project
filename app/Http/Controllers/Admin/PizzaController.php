@@ -135,6 +135,7 @@ class PizzaController extends Controller
         $searchData = Pizza::orWhere('pizza_name','like','%'.$searchKey.'%')
                             ->orWhere('price','like','%'.$searchKey.'%')
                             ->paginate(3);
+        $searchData->appends($request->all());
         if(count($searchData) == 0){
             $emptyStasus = 0;
         }else{

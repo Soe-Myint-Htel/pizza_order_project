@@ -36,7 +36,7 @@
                 </a>
 
                 <div class="card-tools">
-                  <form action="{{ route('admin#searchPizza') }}" method="POST">
+                  <form action="{{ route('admin#searchPizza') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm mt-1" style="width: 150px;">
                       <input type="text" name="table_search" class="form-control float-right" placeholder="Search">

@@ -15,7 +15,7 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="active tab-pane d-flex justify-content-around" id="activity">
-                        <div class="mt-4">
+                        <div class="mt-4  w-50 h-50">
                             <img  class="img-thumbnail rounded" src="{{ asset('uploads/'.$pizza->image) }}">
                         </div>
                         <div class="">

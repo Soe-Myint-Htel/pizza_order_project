@@ -43,7 +43,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('deleteCategory/{id}','CategoryController@delete')->name('admin#deleteCategory');
     Route::get('editCategory/{id}','CategoryController@edit')->name('admin#editCategory');
     Route::post('updateCategory','CategoryController@update')->name('admin#updateCategory');
-    Route::get('searchCategory','CategoryController@search')->name('admin#searchCategory');
+    Route::get('category/search','CategoryController@search')->name('admin#searchCategory');
 
     Route::get('pizza','PizzaController@pizza')->name('admin#pizza');
     Route::get('createPizza', 'PizzaController@createPizza')->name('admin#createPizza');
@@ -52,7 +52,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('infoPizza/{id}', 'PizzaController@infoPizza')->name('admin#infoPizza');
     Route::get('editPizza/{id}', 'PizzaController@editPizza')->name('admin#editPizza');
     Route::post('updatePizza/{id}', 'PizzaController@updatePizza')->name('admin#updatePizza');
-    Route::post('Pizza', 'PizzaController@searchPizza')->name('admin#searchPizza');
+    Route::get('pizza/search', 'PizzaController@searchPizza')->name('admin#searchPizza');
     
 });
 Route::group(['prefix'=>'user'],function(){

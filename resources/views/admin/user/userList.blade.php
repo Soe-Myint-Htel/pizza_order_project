@@ -56,7 +56,6 @@
                   </thead>
                   <tbody>
                     @foreach ($user as $item)
-                    @if ($item->role != 'admin')
                       <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->name}}</td>
@@ -69,7 +68,6 @@
                           </a>
                         </td>
                       </tr>
-                    @endif
                     @endforeach
                   </tbody>
                 </table>

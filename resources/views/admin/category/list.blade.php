@@ -33,14 +33,14 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <a href="{{ route('admin#addCategory') }}">
-                    <button class="btn btn-sm btn-outline-dark">Add Category</button>
+                    <button class="btn btn-sm btn-outline-dark mt-1">Add Category</button>
                   </a>
                 </h3>
-
+                  <span class="badge rounded-pill bg-success fs-5 ms-3 mt-1">Total - {{ $category->total() }}</span>
                 <div class="card-tools">
                   <form action="{{ route('admin#searchCategory') }}" method="GET">
                     @csrf
-                    <div class="input-group input-group-sm" style="width: 150px;">
+                    <div class="input-group input-group-sm mt-2" style="width: 150px;">
                       <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ old('search') }}">
   
                       <div class="input-group-append">

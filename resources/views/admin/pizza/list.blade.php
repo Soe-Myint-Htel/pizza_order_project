@@ -34,6 +34,7 @@
                 <a href="{{ route('admin#createPizza') }}">
                   <button class="btn btn-dark"><i class="fas fa-plus me-2"></i>Add Pizza</button>
                 </a>
+                <span class="badge rounded-pill bg-success fs-5 ms-3 mt-1">Total - {{ $pizza->total() }}</span>
 
                 <div class="card-tools">
                   <form action="{{ route('admin#searchPizza') }}" method="GET">

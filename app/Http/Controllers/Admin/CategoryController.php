@@ -1,17 +1,28 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class categoryController extends Controller
 {
     
     public function category(){
-        $data = Category::paginate(3);
+        $data = Category::select('categories.*',DB::raw('COUNT(pizzas.category_id)as count'))
+                ->leftJoin('pizzas','pizzas.category_id','categories.category_id')
+                ->groupBy('categories.category_id')
+                ->paginate(3);
+        // dd($data->toArray());
+
+        // $data = Category::select('categories.*',DB::raw('COUNT(pizzas.category_id)as count'))
+        //         ->leftJoin('pizzas','pizzas.category_id','categories.category_id')
+        //         ->groupBy('categories.category_id')
+        //         ->get();
+        // dd($data->toArray());
         return view('admin.category.list')->with(['category' => $data]);
     }
     // add category

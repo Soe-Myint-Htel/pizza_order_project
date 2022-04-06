@@ -68,7 +68,7 @@
                     <tr>
                       <td>{{$item->category_id}}</td>
                       <td>{{$item->category_name}}</td>
-                      <td>1</td>
+                      <td>{{ $item->count }}</td>
                       <td>
                         <a href="{{ route('admin#editCategory', $item->category_id) }}">
                           <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Pizza;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -65,6 +66,15 @@ class categoryController extends Controller
         $data = Category::where('category_name', 'like', '%'.$request->search.'%')->paginate(3);
         $data->appends($request->all());
         return view('admin.category.list')->with(['category' => $data]);
+    }
+
+    // category item
+    public function categoryItem($id){
+        $data = Pizza::select('pizzas.*','categories.category_name as categroyName')
+                        ->join('categories','categories.category_id','pizzas.category_id')
+                        ->where('pizzas.category_id',$id)
+                        ->paginate(3);
+        return view('admin.category.item')->with(['pizza'=>$data]);
     }
 
     public function createCategory(Request $request){

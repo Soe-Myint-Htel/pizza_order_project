@@ -27,7 +27,11 @@
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pizza">Pizza</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#logout">Logout</a></li>
+                    <li class="nav-item"><span class="nav-link text-primary">{{ Auth()->user()->name }}</span></li>
+                    <form action="{{ route('logout') }}" class="d-flex" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+                    </form>
                 </ul>
             </div>
         </div>

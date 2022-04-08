@@ -69,4 +69,5 @@ Route::group(['prefix'=>'user'],function(){
     Route::get('/','UserController@index')->name('user#index');
     Route::post('contact/create', 'Admin\ContactController@createContact')->name('user#createContact');
 
+    Route::get('pizza/details/{id}', 'UserController@pizzaDetails')->name('user#pizzaDetails');
 });

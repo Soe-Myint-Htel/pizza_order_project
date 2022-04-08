@@ -12,4 +12,9 @@ class UserController extends Controller
         $pizza = Pizza::where('public_status',1)->get();
         return view('user.home')->with(['pizza'=>$pizza]);
     }
+
+    public function pizzaDetails($id){
+        $data = Pizza::where('pizza_id',$id)->first();
+        return view('user.details')->with(['pizza'=>$data]);
+    }
 }

@@ -18,12 +18,6 @@ class categoryController extends Controller
                 ->groupBy('categories.category_id')
                 ->paginate(3);
         // dd($data->toArray());
-
-        // $data = Category::select('categories.*',DB::raw('COUNT(pizzas.category_id)as count'))
-        //         ->leftJoin('pizzas','pizzas.category_id','categories.category_id')
-        //         ->groupBy('categories.category_id')
-        //         ->get();
-        // dd($data->toArray());
         return view('admin.category.list')->with(['category' => $data]);
     }
     // add category

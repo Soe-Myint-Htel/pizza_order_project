@@ -71,6 +71,15 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{ route('admin#contactList')}}" class="nav-link">
+              <i class="fas fa-file-signature"></i>
+              <p>
+                Contact
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="carrier.html" class="nav-link">
               <p>

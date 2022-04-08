@@ -86,12 +86,29 @@
 
     <div class="text-center d-flex justify-content-center align-items-center" id="contact">
         <div class="col-4 border shadow-sm ps-5 pt-5 pe-5 pb-2 mb-5">
+             {{-- contact success--}}
+        @if (Session::has('contactSuccess'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ Session::get('contactSuccess') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
             <h3>Contact Us</h3>
 
-            <form action="" class="my-4">
-                <input type="text" name="" id="" class="form-control my-3" placeholder="Name">
-                <input type="text" name="" id="" class="form-control my-3" placeholder="Email">
-                <textarea class="form-control my-3" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+            <form action="{{ route('user#createContact') }}" method="POST" class="my-4">
+                @csrf
+                <input type="text" name="name" value="{{ old('name') }}" class="form-control my-3" placeholder="Name">
+                @if ($errors->has('name'))
+                    <p class="text-danger">{{ $errors->first('name') }}</p>
+                @endif
+                <input type="text" name="email" value="{{ old('email') }}" class="form-control my-3" placeholder="Email">
+                @if ($errors->has('email'))
+                    <p class="text-danger">{{ $errors->first('email') }}</p>
+                @endif
+                <textarea class="form-control my-3" rows="3" placeholder="Message" name="message">{{ old('message') }}</textarea>
+                @if ($errors->has('message'))
+                    <p class="text-danger">{{ $errors->first('message') }}</p>
+                @endif
                 <button type="submit" class="btn btn-outline-dark">Send  <i class="fas fa-arrow-right"></i></button>
             </form>
         </div>

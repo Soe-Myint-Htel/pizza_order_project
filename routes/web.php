@@ -62,7 +62,11 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('adminList/search', 'UserController@adminSearch')->name('admin#adminSearch');
     Route::get('adminList/delete/{id}', 'UserController@adminDelete')->name('admin#adminDelete');
 
+    Route::get('contact/list', 'ContactController@contactList')->name('admin#contactList');
+    Route::get('contact/search', 'ContactController@contactSearch')->name('admin#contactSearch');
 });
 Route::group(['prefix'=>'user'],function(){
     Route::get('/','UserController@index')->name('user#index');
+    Route::post('contact/create', 'Admin\ContactController@createContact')->name('user#createContact');
+
 });

@@ -70,4 +70,6 @@ Route::group(['prefix'=>'user'],function(){
     Route::post('contact/create', 'Admin\ContactController@createContact')->name('user#createContact');
 
     Route::get('pizza/details/{id}', 'UserController@pizzaDetails')->name('user#pizzaDetails');
+    Route::get('category/search/{id}', 'UserController@categorySearch')->name('user#categorySearch');
+    
 });

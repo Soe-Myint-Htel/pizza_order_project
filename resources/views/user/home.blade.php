@@ -23,12 +23,10 @@
                         </form>
 
                         <div class="">
-                            <div class="m-2 p-2">All</div>
-                            <div class="m-2 p-2">Seafood</div>
-                            <div class="m-2 p-2">Chicken</div>
-                            <div class="m-2 p-2">Cheese</div>
-                            <div class="m-2 p-2">BBQ</div>
-                            <div class="m-2 p-2">Ocean</div>
+                            <a href="{{ route('user#index') }}" class="text-decoration-none text-dark"><div class="m-2 p-2">All</div></a>
+                            @foreach ($category as $item)
+                                <a href="{{ route('user#categorySearch',$item->category_id) }}" class="text-decoration-none text-dark"><div class="m-2 p-2">{{ $item->category_name }}</div></a>
+                            @endforeach
                         </div>
                         <hr>
                         <div class="text-center m-4 p-2">
@@ -59,7 +57,7 @@
                             <!-- Sale badge-->
 
                             @if ($item->buy_one_get_one_status ===  1)
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Buy 1 Get 1</div>
+                            <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Buy 1 Get 1</div>
                             @endif
                             <!-- Product image-->
                             <img class="card-img-top" id="pizza-image" src="{{ asset('uploads/'.$item->image) }}" alt="..." />
@@ -69,7 +67,7 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ $item->pizza_name}}</h5>
                                     <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span> {{$item->price}}
+                                    <span class="text-muted text-decoration-line-through"></span> {{$item->price}} Kyats
                                 </div>
                             </div>
                             <!-- Product actions-->

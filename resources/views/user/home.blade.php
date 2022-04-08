@@ -17,8 +17,9 @@
             <div class="col-3 me-5">
                 <div class="">
                     <div class="py-5 text-center">
-                        <form class="d-flex m-5">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <form action="{{ route('user#searchItem') }}" class="d-flex m-5" method="GET">
+                            @csrf
+                            <input class="form-control me-2 p-2" name="searchData" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-dark" type="submit">Search</button>
                         </form>
 
@@ -51,6 +52,7 @@
             </div>
             <div class="mt-5">
                 <div class="row gx-4 gx-lg-5" id="pizza">
+                    @if ($status == 1)
                     @foreach ($pizza as $item)
                     <div class="col-md-4 mb-5">
                         <div class="card h-100">
@@ -77,7 +79,13 @@
                         </div>
                     </div>
                     @endforeach
+                    @else
+                    <div class="alert alert-danger mt-5" role="alert">
+                        This pizza list is out of stock...
+                      </div>
+                    @endif
                 </div>
+                {{ $pizza->links() }}
             </div>
         </div>
     </div>

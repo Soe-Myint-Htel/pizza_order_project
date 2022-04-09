@@ -39,7 +39,21 @@ class UserController extends Controller
     public function searchPizzaItem(Request $request){
         $min = $request->minPrice;
         $max = $request->maxPrice;
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
         $query = Pizza::select('*');
+
+        if(!is_null($startDate)  && is_null($endDate)){
+            $query = $query->where('created_at', '>=', $startDate);
+        }elseif(is_null($startDate) && !is_null($endDate)){
+            $query = $query->where('created_at', '<=', $endDate);
+        }elseif(!is_null($startDate) && !is_null($endDate)){
+            $query = $query->where('created_at', '>=', $startDate)
+                            ->where('created_at', '<=', $endDate);
+        }
+
+
+
         if(!is_null($min)  && is_null($max)){
             $query = $query->where('price', '>=',$min);
         }elseif(is_null($min) && !is_null($max)){

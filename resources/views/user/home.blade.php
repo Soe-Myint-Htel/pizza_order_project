@@ -31,10 +31,11 @@
                         </div>
                         <hr>
                         <form action="{{ route('user#searchPizzaItem') }}" method="GET">
+                            @csrf
                             <div class="text-center m-4 p-2">
                                 <h3 class="mb-3">Start Date - End Date</h3>
-                                    <input type="date" name="" id="" class="form-control"> -
-                                    <input type="date" name="" id="" class="form-control">
+                                    <input type="date" name="startDate" class="form-control"> -
+                                    <input type="date" name="endDate" class="form-control">
                             </div>
                             <hr>
                             <div class="text-center m-4 p-2">

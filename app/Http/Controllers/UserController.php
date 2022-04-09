@@ -35,4 +35,23 @@ class UserController extends Controller
         $status = count($data) == 0? 0 : 1 ;
         return view('user.home')->with(['pizza'=>$data,'category'=>$category,'status'=>$status]);
     }
+
+    public function searchPizzaItem(Request $request){
+        $min = $request->minPrice;
+        $max = $request->maxPrice;
+        $query = Pizza::select('*');
+        if(!is_null($min)  && is_null($max)){
+            $query = $query->where('price', '>=',$min);
+        }elseif(is_null($min) && !is_null($max)){
+            $query = $query->where('price', '<=', $max);
+        }elseif(!is_null($min) && !is_null($max)){
+            $query = $query->where('price', '>=', $min)
+                            ->where('price', '<=', $max);
+        }
+        $query = $query->paginate(3);
+        $query->appends($request->all());
+        $category = Category::get();
+        $status = count($query) == 0? 0 : 1 ;
+        return view('user.home')->with(['pizza'=>$query,'category'=>$category,'status'=>$status]);
+    }
 }

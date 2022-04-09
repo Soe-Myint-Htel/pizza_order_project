@@ -30,23 +30,20 @@
                             @endforeach
                         </div>
                         <hr>
-                        <div class="text-center m-4 p-2">
-                            <h3 class="mb-3">Start Date - End Date</h3>
-
-                            <form>
-                                <input type="date" name="" id="" class="form-control"> -
-                                <input type="date" name="" id="" class="form-control">
-                            </form>
-                        </div>
-                        <hr>
-                        <div class="text-center m-4 p-2">
-                            <h3 class="mb-3">Min - Max Amount</h3>
-
-                            <form>
-                                <input type="number" name="" id="" class="form-control" placeholder="minimum price"> -
-                                <input type="number" name="" id="" class="form-control" placeholder="maximun price">
-                            </form>
-                        </div>
+                        <form action="{{ route('user#searchPizzaItem') }}" method="GET">
+                            <div class="text-center m-4 p-2">
+                                <h3 class="mb-3">Start Date - End Date</h3>
+                                    <input type="date" name="" id="" class="form-control"> -
+                                    <input type="date" name="" id="" class="form-control">
+                            </div>
+                            <hr>
+                            <div class="text-center m-4 p-2">
+                                <h3 class="mb-3">Min - Max Amount</h3>
+                                    <input type="number" name="minPrice" class="form-control" placeholder="minimum price"> -
+                                    <input type="number" name="maxPrice" class="form-control" placeholder="maximun price">
+                                    <button class="btn btn-dark mt-3">Search<i class="fa-solid fa-magnifying-glass ms-2"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

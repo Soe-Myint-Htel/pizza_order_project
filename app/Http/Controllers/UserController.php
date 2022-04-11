@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pizza;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -18,6 +19,7 @@ class UserController extends Controller
 
     public function pizzaDetails($id){
         $data = Pizza::where('pizza_id',$id)->first();
+        Session::put('PIZZA_INFO', $data); //session to order page
         return view('user.details')->with(['pizza'=>$data]);
     }
 
@@ -67,5 +69,16 @@ class UserController extends Controller
         $category = Category::get();
         $status = count($query) == 0? 0 : 1 ;
         return view('user.home')->with(['pizza'=>$query,'category'=>$category,'status'=>$status]);
+    }
+
+    public function order(){
+        $pizzaInfo = Session::get('PIZZA_INFO'); //session from details
+        return view('user.order')->with(['pizza'=>$pizzaInfo]);
+    }
+
+    public function placeOrder(Request $request){
+        $pizzaInfo = Session::get('PIZZA_INFO');
+        $userID = Auth()->user()->id;
+        dd($userID);
     }
 }

@@ -73,4 +73,7 @@ Route::group(['prefix'=>'user'],function(){
     Route::get('category/search/{id}', 'UserController@categorySearch')->name('user#categorySearch');
     Route::get('search/item', 'UserController@searchItem')->name('user#searchItem');
     Route::get('search/pizzaItem', 'UserController@searchPizzaItem')->name('user#searchPizzaItem');
+
+    Route::get('order', 'UserController@order')->name('user#order');
+    Route::post('order', 'UserController@placeOrder')->name('user#placeOrder');
 });

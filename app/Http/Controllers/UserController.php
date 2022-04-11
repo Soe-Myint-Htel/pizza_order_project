@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Order;
 use App\Models\Pizza;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -79,6 +82,37 @@ class UserController extends Controller
     public function placeOrder(Request $request){
         $pizzaInfo = Session::get('PIZZA_INFO');
         $userID = Auth()->user()->id;
-        dd($userID);
+        $count = $request->pizzaCount;
+
+        $validator = Validator::make($request->all(), [
+            'pizzaCount' => 'required',
+            'paymentType' => 'required',
+        ]);
+ 
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $orderData = $this->requestOrderData($pizzaInfo, $userID, $request);
+        for($i=0; $i<$count; $i++){
+            Order::create($orderData);
+        }
+
+        $waitingTime = $pizzaInfo['waiting_time'] * $count;
+        return back()->with(['totalTime'=>$waitingTime]);
+    }
+
+
+
+    private function requestOrderData($pizzaInfo, $userID, $request){
+        return [
+            'customer_id'=>$userID,
+            'pizza_id'=>$pizzaInfo['pizza_id'],
+            'deliver_id'=>0,
+            'payment_status'=>$request->paymentType,
+            'order_time'=>Carbon::now(),
+        ];
     }
 }

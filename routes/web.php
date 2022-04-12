@@ -66,6 +66,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('contact/search', 'ContactController@contactSearch')->name('admin#contactSearch');
 
     Route::get('order/list', 'OrderController@orderList')->name('admin#orderList');
+    Route::get('order/search', 'OrderController@orderSearch')->name('admin#orderSearch');
 });
 Route::group(['prefix'=>'user'],function(){
     Route::get('/','UserController@index')->name('user#index');

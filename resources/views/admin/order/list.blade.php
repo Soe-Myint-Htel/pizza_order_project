@@ -13,7 +13,7 @@
                 
                   <span class="badge rounded-pill bg-success fs-5 ms-3 mt-1">Total - {{ $order->total() }}</span>
                 <div class="card-tools">
-                  <form action="" method="GET">
+                  <form action="{{ route('admin#orderSearch') }}" method="GET">
                     @csrf
                     <div class="input-group input-group-sm mt-2" style="width: 150px;">
                       <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ old('search') }}">

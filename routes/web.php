@@ -45,6 +45,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::post('updateCategory','CategoryController@update')->name('admin#updateCategory');
     Route::get('category/search','CategoryController@search')->name('admin#searchCategory');
     Route::get('categoryItem/{id}','CategoryController@categoryItem')->name('admin#categoryItem');
+    Route::get('category/download', 'CategoryController@categoryDownload')->name('admin#categoryDownload');
 
     Route::get('pizza','PizzaController@pizza')->name('admin#pizza');
     Route::get('createPizza', 'PizzaController@createPizza')->name('admin#createPizza');

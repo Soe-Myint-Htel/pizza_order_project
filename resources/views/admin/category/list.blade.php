@@ -37,10 +37,12 @@
                   </a>
                 </h3>
                   <span class="badge rounded-pill bg-success fs-5 ms-3 mt-1">Total - {{ $category->total() }}</span>
-                <div class="card-tools">
+                <div class="card-tools d-flex">
+                  <a href="{{ route('admin#categoryDownload') }}">
+                    <buttom class="btn btn-sm btn-success mt-1 me-4">Download CSV</buttom></a>
                   <form action="{{ route('admin#searchCategory') }}" method="GET">
                     @csrf
-                    <div class="input-group input-group-sm mt-2" style="width: 150px;">
+                    <div class="input-group input-group-sm mt-1" style="width: 150px;">
                       <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ old('search') }}">
   
                       <div class="input-group-append">

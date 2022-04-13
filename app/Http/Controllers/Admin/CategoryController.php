@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use Laracsv\Export;
 use App\Models\User;
 use App\Models\Pizza;
+use League\Csv\Reader;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,5 +86,29 @@ class categoryController extends Controller
         $data = ['category_name' => $request->name];
         Category::create($data);
         return redirect()->route('admin#category')->with(['successCategory' => 'Category added successfully...']);
+    }
+
+    //csv download
+    //library website link -https://webty.jp/staffblog/production/post-2990/?fbclid=IwAR0EcAZevdQ-wacEQv_p9xoME8IGgQfCHlJ8exhSLjxqwcL1nnIdU-jxV2I
+    public function categoryDownload(){
+        $category = Category::get();
+
+        $csvExporter = new \Laracsv\Export();
+
+        $csvExporter->build($category, [
+            'category_id' => 'ID',
+            'category_name' => 'Name',
+            'created_at' => 'Created Date',
+            'updated_at' => 'Updated Date',
+        ]);
+
+        $csvReader = $csvExporter->getReader();
+        $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
+
+        $filename = 'categoryList.csv';
+
+        return response((string) $csvReader)
+            ->header('Content-Type', 'text/csv; charset=UTF-8')
+            ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
     }
 }

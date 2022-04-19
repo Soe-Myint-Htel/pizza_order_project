@@ -10,12 +10,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">
+                <span class="badge rounded-pill bg-success fs-5 ms-3 mt-1">Total - {{ $contact->total() }}</span>
                 <div class="card-tools">
                   <form action="{{ route('admin#contactSearch') }}" method="GET">
                     @csrf
-                    <div class="input-group input-group-sm mt-2" style="width: 150px;">
-                      <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ old('search') }}">
+                    <div class="input-group input-group-sm mt-1 " style="width: 150px;">
+                      <input type="text" name="search" class="form-control " placeholder="Search" value="{{ old('search') }}">
   
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">

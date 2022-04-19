@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use Laracsv\Export;
 use App\Models\Pizza;
+use League\Csv\Reader;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class PizzaController extends Controller
 {
     public function pizza(){
+        if(Session::has('PIZZA_SEARCH')){
+            Session::forget('PIZZA_SEARCH');
+        }
+        
         $data = Pizza::paginate(3);
 
         if(count($data) == 0){
@@ -136,12 +143,50 @@ class PizzaController extends Controller
                             ->orWhere('price','like','%'.$searchKey.'%')
                             ->paginate(3);
         $searchData->appends($request->all());
+
+        Session::put('PIZZA_SEARCH', $searchKey);
+
         if(count($searchData) == 0){
             $emptyStasus = 0;
         }else{
             $emptyStasus = 1;
         }
         return view('admin.pizza.list')->with(['pizza'=>$searchData,'status'=>$emptyStasus]);
+    }
+
+    // download pizza
+    public function pizzaDownload(){
+        if(Session::has('PIZZA_SEARCH')){
+            $pizza = Pizza::orWhere('pizza_name','like','%'.Session::get('PIZZA_SEARCH').'%')
+            ->orWhere('price','like','%'.Session::get('PIZZA_SEARCH').'%')
+            ->get();
+        }else{
+            $pizza = Pizza::get();
+        }
+
+        
+
+        $csvExporter = new \Laracsv\Export();
+
+        $csvExporter->build($pizza, [
+            'pizza_id' => 'ID',
+            'pizza_name' => 'Pizza Name',
+            'price' => 'Pizza Price',
+            'public_status' => 'Publish Date',
+            'buy_one_get_one_status' => 'Buy one get one',
+            'created_at' => 'Created Date',
+            'updated_at' => 'Updated Date',
+        ]);
+
+        $csvReader = $csvExporter->getReader();
+        $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
+
+        $filename = 'PzzaList.csv';
+
+        return response((string) $csvReader)
+            ->header('Content-Type', 'text/csv; charset=UTF-8')
+            ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
+
     }
 
 

@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Middleware\UserCheckMiddleware;
+use App\Http\Middleware\AdminCheckMiddleware;
 use App\Http\Controllers\Admin\PizzaController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     }
 })->name('dashboard');
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>[AdminCheckMiddleware::class]],function(){
     Route::get('profile','AdminController@profile')->name('admin#profile');
 
     Route::post('update/{id}', 'AdminController@updateProfile')->name('admin#updateProfile');
@@ -70,7 +72,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('order/list', 'OrderController@orderList')->name('admin#orderList');
     Route::get('order/search', 'OrderController@orderSearch')->name('admin#orderSearch');
 });
-Route::group(['prefix'=>'user'],function(){
+Route::group(['prefix'=>'user', 'middleware'=>[UserCheckMiddleware::class]],function(){
     Route::get('/','UserController@index')->name('user#index');
     Route::post('contact/create', 'Admin\ContactController@createContact')->name('user#createContact');
 

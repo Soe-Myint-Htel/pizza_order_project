@@ -1,10 +1,13 @@
 <?php
 
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 
+
+Route::post('login', 'AuthController@login');
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,11 +19,18 @@ use Illuminate\Support\Facades\Response;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/user', function () {
+    return User::all();
 });
+// Route::group(['middleware'=>'auth:sanctum'], function(){
+//     Route::get('user', function(){
+//         return User::all();
+//     });
+// });
 
-Route::group(['prefix'=>'category', 'namespace'=>'API'], function(){
+
+
+Route::group(['prefix'=>'category', 'namespace'=>'API', 'middleware'=>'auth:sanctum'], function(){
     Route::get('list', 'ApiController@categoryList');
     Route::post('create', 'ApiController@categoryCreate');
     Route::get('details/{id}', 'ApiController@categoryDetails');

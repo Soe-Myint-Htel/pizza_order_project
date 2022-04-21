@@ -69,4 +69,28 @@ class ApiController extends Controller
         ]);
     }
 
+    public function categoryUpdate(Request $request){
+        $updateData = [
+            'category_id'=>$request->id,
+            'category_name'=>$request->categoryName,
+            'updated_at'=>Carbon::now(),
+        ];
+
+        $check = Category::where('category_id', $request->id)->first();
+
+        if(!empty($check)){
+            Category::where('category_id', $request->id)->update($updateData);
+            return Response::json([
+                "status"=>200,
+                "message"=>"success"
+            ]);
+        };
+
+        return Response::json([
+            "status"=>400,
+            "message"=>"No such data in the table",
+        ]);
+    }
+
+
 }

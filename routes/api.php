@@ -25,4 +25,5 @@ Route::group(['prefix'=>'category', 'namespace'=>'API'], function(){
     Route::post('create', 'ApiController@categoryCreate');
     Route::get('details/{id}', 'ApiController@categoryDetails');
     Route::get('delete/{id}', 'ApiController@categoryDelete');
+    Route::post('update', 'ApiController@categoryUpdate');
 });

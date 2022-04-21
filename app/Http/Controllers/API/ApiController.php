@@ -33,4 +33,40 @@ class ApiController extends Controller
         ]);
     }
 
+    public function categoryDetails($id){
+        $data = Category::where('category_id', $id)->first();
+
+        if(!empty($data)){
+            return Response::json([
+                "status"=>200,
+                "message"=>"success",
+                "data"=>$data,
+            ]);
+        }
+
+        return Response::json([
+            "status"=>400,
+            "message"=>"fail",
+            "data"=>$data,
+        ]);
+    }
+
+    public function categoryDelete($id){
+        $data = Category::where('category_id', $id)->first();
+
+        if(empty($data)){
+            return Response::json([
+                "status"=>400,
+                "message"=>"No such data in the table",
+            ]);
+        }
+
+        Category::where('category_id', $id)->delete($data);
+
+        return Response::json([
+            "status"=>200,
+            "message"=>"success",
+        ]);
+    }
+
 }

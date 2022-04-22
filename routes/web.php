@@ -63,6 +63,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>[AdminCheck
     Route::get('adminList', 'UserController@adminList')->name('admin#adminList');
     Route::get('userList/search', 'UserController@userSearch')->name('admin#userSearch');
     Route::get('userList/delete/{id}', 'UserController@userDelete')->name('admin#userDelete');
+    Route::get('userList/Edit/{id}', 'UserController@userEdit')->name('admin#userEdit');
+    Route::post('userList/EditUpdate/{id}', 'UserController@userEditUpdate')->name('admin#userEditUpdate');
     Route::get('adminList/search', 'UserController@adminSearch')->name('admin#adminSearch');
     Route::get('adminList/delete/{id}', 'UserController@adminDelete')->name('admin#adminDelete');
 

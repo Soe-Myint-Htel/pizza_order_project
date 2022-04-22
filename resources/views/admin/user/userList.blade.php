@@ -66,6 +66,9 @@
                           <a href="{{ route('admin#userDelete', $item->id)}}">
                             <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
                           </a>
+                          <a href="{{ route('admin#userEdit', $item->id)}}">
+                            <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
+                          </a>
                         </td>
                       </tr>
                     @endforeach

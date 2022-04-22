@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -32,6 +33,32 @@ class UserController extends Controller
         return back()->with(['deleteSuccess'=>'User deleted successfully...']);
     }
 
+    public function userEdit($id){
+        $userData = User::where('id', $id)->first();
+        return view('admin.user.userEdit')->with(['user'=>$userData]);
+    }
+
+    public function userEditUpdate($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'role' => 'required',
+        ]);
+ 
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        };
+
+        $updateData = $this->requestUserData($request);
+        User::where('id',$id)->update($updateData);
+        return back()->with(['updateSuccess'=>'User information updated successfully']);
+    }
+
+
     // admin search
     public function adminSearch(Request $request){
         $response = $this->search($request->search,'admin',$request);
@@ -43,6 +70,19 @@ class UserController extends Controller
         User::where('id', $id)->delete();
         return back()->with(['deleteSuccess'=>'Admin deleted successfully...']);
     }
+
+    private function requestUserData($request){
+        return [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'role' => $request->role,
+        ];
+    }
+
+
+
     // data searching
     private function search($key, $role, $request){
         $searchData = User::where('role',$role)
